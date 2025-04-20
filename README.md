@@ -13,7 +13,6 @@ A smart and responsive To-Do + Calendar Web App built with **React**, designed t
   - Alerts for overdue tasks
   - Alerts for high-priority tasks pending after 24 hours
 - 📅 Built-in Calendar Integration
-- 🌗 Dark Mode / Light Mode Toggle
 - 💾 Data saved in `localStorage` (no backend needed)
 - ✨ Responsive UI with Tailwind CSS
 
