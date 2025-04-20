@@ -10,8 +10,8 @@ function App() {
   const [dueDate, setDueDate] = useState("");
   const [showNotificationPermission, setShowNotificationPermission] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("theme") === "dark" || 
-           (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    return localStorage.getItem("theme") === "dark" ||
+      (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
   });
   const [filter, setFilter] = useState(() => localStorage.getItem("filter") || "All");
 
@@ -55,33 +55,33 @@ function App() {
   // Check for reminders function
   const checkForReminders = () => {
     if (Notification.permission !== "granted") return;
-    
+
     const now = new Date();
     const oneHour = 60 * 60 * 1000;
-    
+
     tasks.forEach(task => {
       if (task.completed) return;
-      
+
       if (task.dueDate) {
         const dueDate = new Date(task.dueDate);
         if (dueDate < now && !task.lastNotified) {
           showNotification("Task overdue", `${task.text} was due on ${new Date(dueDate).toLocaleDateString()}`);
-          const updatedTasks = tasks.map(t => 
-            t.id === task.id ? {...t, lastNotified: new Date().toISOString()} : t
+          const updatedTasks = tasks.map(t =>
+            t.id === task.id ? { ...t, lastNotified: new Date().toISOString() } : t
           );
           setTasks(updatedTasks);
         }
       }
-      
+
       if (task.priority === "High" && !task.dueDate) {
         const createdAt = new Date(task.createdAt);
         const hoursSinceCreation = (now - createdAt) / oneHour;
-        
-        if (hoursSinceCreation > 24 && (!task.lastNotified || 
-            (new Date(now - new Date(task.lastNotified)) / oneHour > 24))) {
+
+        if (hoursSinceCreation > 24 && (!task.lastNotified ||
+          (new Date(now - new Date(task.lastNotified)) / oneHour > 24))) {
           showNotification("High priority task", `Don't forget: ${task.text}`);
-          const updatedTasks = tasks.map(t => 
-            t.id === task.id ? {...t, lastNotified: new Date().toISOString()} : t
+          const updatedTasks = tasks.map(t =>
+            t.id === task.id ? { ...t, lastNotified: new Date().toISOString() } : t
           );
           setTasks(updatedTasks);
         }
@@ -153,17 +153,17 @@ function App() {
   };
 
   const toggleCompleted = (taskId) => {
-    setTasks(tasks.map(t => t.id === taskId ? {...t, completed: !t.completed} : t));
+    setTasks(tasks.map(t => t.id === taskId ? { ...t, completed: !t.completed } : t));
   };
 
   // Drag and drop with smooth animation
   const handleDragEnd = (result) => {
     if (!result.destination) return;
-    
+
     const items = Array.from(tasks);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-    
+
     setTimeout(() => {
       setTasks(items);
     }, 100);
@@ -191,14 +191,13 @@ function App() {
     if (!dueDate) return null;
     const today = new Date();
     const due = new Date(dueDate);
-    const isOverdue = due < today && !(due.getDate() === today.getDate() && 
-                     due.getMonth() === today.getMonth() && due.getFullYear() === today.getFullYear());
-    
+    const isOverdue = due < today && !(due.getDate() === today.getDate() &&
+      due.getMonth() === today.getMonth() && due.getFullYear() === today.getFullYear());
+
     return (
-      <span className={`ml-2 px-2 py-0.5 text-xs font-medium rounded-full ${
-        isOverdue ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
-                 : "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-      }`}>
+      <span className={`ml-2 px-2 py-0.5 text-xs font-medium rounded-full ${isOverdue ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+          : "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        }`}>
         {new Date(dueDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
         {isOverdue && " ⚠️"}
       </span>
@@ -266,7 +265,7 @@ function App() {
                 const low = ['someday', 'maybe', 'if time', 'optional'];
                 setPriority(
                   urgent.some(w => text.toLowerCase().includes(w)) ? "High" :
-                  low.some(w => text.toLowerCase().includes(w)) ? "Low" : "Medium"
+                    low.some(w => text.toLowerCase().includes(w)) ? "Low" : "Medium"
                 );
               }
             }}
@@ -299,9 +298,8 @@ function App() {
         {/* Add/update button */}
         <button
           onClick={handleAddTask}
-          className={`w-full mb-6 px-5 py-3 rounded-lg font-medium transition-all ${
-            editingIndex !== null ? "bg-purple-600 hover:bg-purple-700" : "bg-blue-600 hover:bg-blue-700"
-          } text-white shadow-md hover:shadow-lg`}
+          className={`w-full mb-6 px-5 py-3 rounded-lg font-medium transition-all ${editingIndex !== null ? "bg-purple-600 hover:bg-purple-700" : "bg-blue-600 hover:bg-blue-700"
+            } text-white shadow-md hover:shadow-lg`}
         >
           {editingIndex !== null ? "Update Task" : "Add Task"}
         </button>
@@ -312,40 +310,37 @@ function App() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-3 py-1 rounded-full text-sm font-medium transition ${
-                filter === f ? "bg-blue-600 text-white" : "bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-500"
-              }`}
+              className={`px-3 py-1 rounded-full text-sm font-medium transition ${filter === f ? "bg-blue-600 text-white" : "bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-500"
+                }`}
             >
               {f}
             </button>
           ))}
         </div>
-
         {/* Task list with smooth drag-and-drop */}
         {filteredTasks.length > 0 ? (
           <div className="relative">
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId="tasks">
                 {(provided) => (
-                  <div 
-                    {...provided.droppableProps} 
+                  <div
+                    {...provided.droppableProps}
                     ref={provided.innerRef}
                     className="overflow-y-auto max-h-96 pr-2 custom-scrollbar"
                   >
-                    <ul className="space-y-3">
+                    <ul className="space-y-3 touch-manipulation">
                       {filteredTasks.map((t, index) => (
-                        <Draggable key={t.id} draggableId={t.id} index={index}>
+                        <Draggable key={t.id} draggableId={t.id.toString()} index={index}>
                           {(provided, snapshot) => (
                             <li
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
-                              className={`group relative bg-gray-50 dark:bg-gray-700 rounded-xl p-4 shadow-sm border-l-4 ${
-                                t.priority === "High" ? "border-red-500" :
-                                t.priority === "Medium" ? "border-yellow-500" : "border-green-500"
-                              } transition-all duration-200 ${
-                                snapshot.isDragging ? "bg-gray-100 dark:bg-gray-600 shadow-lg" : ""
-                              }`}
+                              style={provided.draggableProps.style}
+                              className={`group relative bg-gray-50 dark:bg-gray-700 rounded-xl p-4 shadow-sm border-l-4 ${t.priority === "High" ? "border-red-500" :
+                                  t.priority === "Medium" ? "border-yellow-500" : "border-green-500"
+                                } transition-all duration-200 ${snapshot.isDragging ? "bg-gray-100 dark:bg-gray-600 shadow-lg" : ""
+                                }`}
                             >
                               <div className="flex items-start">
                                 {/* Custom checkbox */}
@@ -356,14 +351,13 @@ function App() {
                                     onChange={() => toggleCompleted(t.id)}
                                     className="sr-only peer"
                                   />
-                                  <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
-                                    t.completed 
+                                  <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${t.completed
                                       ? 'border-blue-500 bg-blue-500 dark:border-blue-400 dark:bg-blue-400'
                                       : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700'
-                                  } peer-hover:border-blue-400 peer-focus:ring-2 peer-focus:ring-blue-300`}>
+                                    } peer-hover:border-blue-400 peer-focus:ring-2 peer-focus:ring-blue-300`}>
                                     {t.completed && (
                                       <svg className="w-3 h-3 text-white dark:text-gray-100" viewBox="0 0 20 20" fill="none">
-                                        <path d="M6 10L9 13L14 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                        <path d="M6 10L9 13L14 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                       </svg>
                                     )}
                                   </div>
@@ -379,7 +373,7 @@ function App() {
                                   </div>
                                 </div>
 
-                                <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition">
+                                <div className="flex space-x-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition">
                                   <button
                                     onClick={(e) => { e.stopPropagation(); handleEdit(index); }}
                                     className="p-2 text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition"
@@ -404,6 +398,7 @@ function App() {
                 )}
               </Droppable>
             </DragDropContext>
+
             {/* Gradient fade */}
             <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white to-transparent dark:from-gray-800 dark:to-transparent pointer-events-none"></div>
           </div>
@@ -426,38 +421,37 @@ function App() {
             </span>
           </div>
         )}
-      </div>
+        {/* Custom scrollbar styles */}
+        <style>{`
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    transition: background 0.3s;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+`}</style>
 
-      {/* Custom scrollbar styles */}
-      <style>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-          height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.05);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(0, 0, 0, 0.2);
-          border-radius: 10px;
-          transition: background 0.3s;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(0, 0, 0, 0.3);
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.2);
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.3);
-        }
-      `}</style>
+      </div>
     </div>
   );
 }
-
-export default App;
+      export default App;
