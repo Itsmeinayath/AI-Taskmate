@@ -30,9 +30,7 @@ A smart and responsive To-Do + Calendar Web App built with **React**, designed t
 
 ## 📸 Screenshots
 
-![Screenshot_2025-04-21-00-48-00-891_com android chrome](https://github.com/user-attachments/assets/7c08949c-8381-4f7f-8ee8-30b73bf882eb)
-
-![Screenshot_2025-04-21-00-48-06-543_com android chrome](https://github.com/user-attachments/assets/5241e496-502e-4728-a7db-323189e92178)
+![Uploading IMG_20250421_005414.jpg…]()
 
 
 ---
