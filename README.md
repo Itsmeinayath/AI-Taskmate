@@ -28,8 +28,7 @@ A smart and responsive To-Do + Calendar Web App built with **React**, designed t
 ---
 
 ## 📸 Screenshots
-
-![Uploading IMG_20250421_005414.jpg…]()
+![IMG_20250421_005414](https://github.com/user-attachments/assets/15dc1e60-3b6d-4ef0-8bfe-4217d638a5e3)
 
 
 ---
@@ -53,3 +52,7 @@ A smart and responsive To-Do + Calendar Web App built with **React**, designed t
 git clone https://github.com/Itsmeinayath/AI-Taskmate.git
 cd AI-Taskmate
 
+
+## 🌐 Live Demo
+
+Check it out here: [AI Taskmate Live](https://ai-taskmate-psi.vercel.app/)
