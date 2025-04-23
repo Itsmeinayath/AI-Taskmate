@@ -55,4 +55,6 @@ cd AI-Taskmate
 
 ## 🌐 Live Demo
 
-Check it out here: [AI Taskmate Live](https://ai-taskmate-psi.vercel.app/)
+Check it out here: [AI Taskmate Live]
+https://ai-taskmate-psi.vercel.app/
+
