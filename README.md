@@ -25,14 +25,6 @@ A smart and responsive To-Do + Calendar Web App built with **React**, designed t
 - **Storage:** HTML5 LocalStorage
 - **Extras:** Browser Notifications API
 
----
-
-## 📸 Screenshots
-![IMG_20250421_005414](https://github.com/user-attachments/assets/15dc1e60-3b6d-4ef0-8bfe-4217d638a5e3)
-
-
----
-
 ## 🧠 How Notifications Work
 
 - The app checks your task list every minute.
